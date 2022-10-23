@@ -21,6 +21,13 @@ namespace Testing
             return product;
         }
 
+        public void DeleteProduct(Product product)
+        {
+            _conn.Execute("Delete from Reviews where ProductID=@productID", new { productID = product.ProductID });
+            _conn.Execute("Delete from Sales where ProductID=@productID", new { productID = product.ProductID });
+            _conn.Execute("Delete from Products where ProductID=@productID", new { productID = product.ProductID });
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _conn.Query<Product>("Select * From Products;");
