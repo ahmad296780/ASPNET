@@ -22,5 +22,11 @@ namespace Testing
         {
             return _conn.QuerySingle<Product>("select * from products where ProductID = @ID", new { id });
         }
+
+        public void UpdateProduct(Product product)
+        {
+             _conn.Execute("update Products set Name=@name, Price=@price where ProductID=@productID",
+                new { name=product.Name, price=product.Price,productID=product.ProductID });
+        }
     }
 }

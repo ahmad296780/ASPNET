@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Testing.Models;
 
 namespace Testing.Controllers
 {
@@ -21,5 +22,21 @@ namespace Testing.Controllers
             var products = repo.GetProductById(id);
             return View(products);
         }
-    }
+        public IActionResult UpdateProduct(int id)
+        {
+            var product = repo.GetProductById(id);
+            if(product == null)
+            {
+                return View("product not found");
+            }
+            return View(product);
+        }
+        public IActionResult UpdateProductToDatabase(Product product)
+        {
+            repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductID });
+        }
+    }     
 }
+
